@@ -1,0 +1,62 @@
+name: Bug report
+description: Something is broken or behaves unexpectedly
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! **Never paste secrets** (Supabase keys, passwords, tokens) or customer data in issues — this repository is public.
+        **Security vulnerabilities must not be reported here** — use [private vulnerability reporting](https://github.com/Shahrukhkaleem-bot/Tech-Lab-/security/advisories/new) instead (see SECURITY.md).
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open https://<store>/products?…
+        2. Click …
+        3. See error …
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Storefront
+        - Cart / checkout
+        - Admin dashboard
+        - Auth / accounts
+        - Tenancy / domains
+        - Payments
+        - Database / RLS
+        - Deployment / CI
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Blocks checkout or orders
+        - Broken feature
+        - Cosmetic
+    validations:
+      required: true
+  - type: input
+    id: tenant
+    attributes:
+      label: Store / host
+      description: Which store and host (e.g. demo-electronics.localhost:3000 or the live URL)?
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Error messages, reference ids ("ref xxxxxx"), browser console output. Redact secrets.
+      render: text
