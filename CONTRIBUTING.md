@@ -3,14 +3,18 @@
 ## Workflow
 
 1. **Issue first.** Every change starts from an issue (use the bug / feature forms). Security
-   problems: don't open a public issue with details. Contact the maintainer privately.
+   problems are **never** reported as public issues: use private vulnerability reporting (see
+   [SECURITY.md](SECURITY.md)).
 2. **Branch** from `main`: `feat/<short-name>`, `fix/<short-name>`, `chore/<short-name>`, `docs/<short-name>`.
 3. **Commit** small, focused changes with imperative messages (`Add coupon admin list`), referencing
    the issue in the body when useful.
 4. **Pull request** into `main` using the template; link the issue with `Closes #N`.
 5. **Review** before merge. Reviewers check correctness, tenant isolation, and that money/stock
    logic stays server-side (see the risk checklist in the PR template).
-6. **Squash-merge.** Merging to `main` deploys to production on Vercel; every PR gets a preview URL.
+6. **Squash-merge** into `main`.
+
+> **Deployments:** once the Vercel ↔ GitHub integration is connected, every merge to `main`
+> deploys to production and every PR gets a preview URL. Until then, deploy with `vercel deploy --prod`.
 
 ## Local setup
 

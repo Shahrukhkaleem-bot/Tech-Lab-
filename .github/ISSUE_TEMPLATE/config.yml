@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/Shahrukhkaleem-bot/Tech-Lab-/security/advisories/new
+    about: Private report to the maintainers. Never post security issues publicly.
   - name: Architecture & docs
     url: https://github.com/Shahrukhkaleem-bot/Tech-Lab-/tree/main/docs
     about: Read the phase docs (architecture, database, RLS, deployment) before proposing structural changes.
