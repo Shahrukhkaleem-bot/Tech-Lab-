@@ -2,9 +2,35 @@ import { Clock, Mail, MapPin, Phone } from "lucide-react"
 import Link from "next/link"
 
 import { SocialLinks } from "@/components/common/social-icons"
+import { developerCredit, type DeveloperCredit } from "@/config/platform"
 import type { NavLink, StoreNavigation, StoreSettings, Tenant } from "@/features/tenants/types"
 
 import { StoreLogo } from "./store-logo"
+
+function CreditName({ label, url }: { label: string; url?: string }) {
+  const className = "font-semibold text-white opacity-100"
+  return url ? (
+    <a href={url} target="_blank" rel="noopener noreferrer" className={`${className} hover:underline`}>
+      {label}
+    </a>
+  ) : (
+    <span className={className}>{label}</span>
+  )
+}
+
+/** Platform developer credit (see src/config/platform.ts). */
+function DeveloperCreditLine({ credit }: { credit: DeveloperCredit }) {
+  return (
+    <p className="flex flex-wrap items-center gap-x-2">
+      <span className="opacity-70">Developed by</span>
+      <CreditName label={credit.name} url={credit.nameUrl} />
+      <span aria-hidden className="opacity-40">
+        |
+      </span>
+      <CreditName label={credit.company} url={credit.companyUrl} />
+    </p>
+  )
+}
 
 function LinkColumn({ title, links }: { title: string; links: NavLink[] }) {
   if (!links.length) return null
@@ -75,20 +101,24 @@ export function SiteFooter({ tenant, settings, navigation }: { tenant: Tenant; s
         <LinkColumn title="Shop" links={navigation.footerCompany} />
       </div>
 
+      {settings.footerBadges.length ? (
+        <div className="border-t border-white/10">
+          <ul className="container-page flex flex-wrap items-center gap-2 py-4 text-xs" aria-label="Payment and delivery partners">
+            {settings.footerBadges.map((b) => (
+              <li key={b.label} className="rounded-md bg-white/10 px-2.5 py-1 font-medium">
+                {b.label}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
       <div className="border-t border-white/10">
-        <div className="container-page flex flex-col gap-4 py-6 text-xs sm:flex-row sm:items-center sm:justify-between">
+        <div className="container-page flex flex-col gap-2 py-5 text-sm sm:flex-row sm:items-center sm:justify-between">
           <p className="opacity-70">
             © {year} {tenant.name}. All rights reserved.
           </p>
-          {settings.footerBadges.length ? (
-            <ul className="flex flex-wrap items-center gap-2" aria-label="Payment and delivery partners">
-              {settings.footerBadges.map((b) => (
-                <li key={b.label} className="rounded-md bg-white/10 px-2.5 py-1 font-medium">
-                  {b.label}
-                </li>
-              ))}
-            </ul>
-          ) : null}
+          {developerCredit ? <DeveloperCreditLine credit={developerCredit} /> : null}
         </div>
       </div>
     </footer>
