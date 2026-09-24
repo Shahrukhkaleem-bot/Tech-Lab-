@@ -16,22 +16,32 @@ import type { StoreNavigation, StoreSettings, Tenant } from "./types"
  * Cached across requests (data cache) and de-duplicated within a request (React cache).
  * Only ACTIVE tenants resolve (RLS for anon), so suspended stores 404 automatically.
  */
-export const getTenantByKey = cache(async (key: string): Promise<Tenant | null> => {
-  return unstable_cache(
-    async () => {
-      const supabase = createSupabasePublicClient()
-      const query = supabase.from("tenants").select("*").limit(1)
-      const { data, error } = await (isCustomDomainKey(key)
-        ? query.eq("custom_domain", key).not("custom_domain_verified_at", "is", null)
-        : query.eq("subdomain", key)
-      ).maybeSingle()
+class TenantNotFound extends Error {}
 
-      if (error) throw toAppError(error, { op: "getTenantByKey", key })
-      return data ? mapTenant(data) : null
-    },
-    ["tenant-by-key", key],
-    { tags: ["tenants", cacheTags.tenantKey(key)], revalidate: cacheTtl.tenant },
-  )()
+export const getTenantByKey = cache(async (key: string): Promise<Tenant | null> => {
+  try {
+    return await unstable_cache(
+      async () => {
+        const supabase = createSupabasePublicClient()
+        const query = supabase.from("tenants").select("*").limit(1)
+        const { data, error } = await (isCustomDomainKey(key)
+          ? query.eq("custom_domain", key).not("custom_domain_verified_at", "is", null)
+          : query.eq("subdomain", key)
+        ).maybeSingle()
+
+        if (error) throw toAppError(error, { op: "getTenantByKey", key })
+        // Thrown (not returned) so "not found" is never cached: a newly connected domain or
+        // store works immediately, and random Host headers can't fill the cache.
+        if (!data) throw new TenantNotFound()
+        return mapTenant(data)
+      },
+      ["tenant-by-key", key],
+      { tags: ["tenants", cacheTags.tenantKey(key)], revalidate: cacheTtl.tenant },
+    )()
+  } catch (error) {
+    if (error instanceof TenantNotFound) return null
+    throw error
+  }
 })
 
 export const getStoreSettings = cache(async (tenantId: string): Promise<StoreSettings> => {
