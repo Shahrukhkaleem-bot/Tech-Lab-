@@ -41,5 +41,8 @@ export function tenantOrigin(tenant: Tenant): string {
   const root = process.env.NEXT_PUBLIC_ROOT_DOMAIN ?? "localhost:3000"
   const isLocal = root.startsWith("localhost")
   if (tenant.customDomain) return `https://${tenant.customDomain}`
+  // Before a real domain is attached, the app runs on a single *.vercel.app host that serves
+  // DEV_TENANT (vercel.app does not allow per-tenant subdomains), so links use that host as-is.
+  if (root.endsWith(".vercel.app")) return `https://${root}`
   return `${isLocal ? "http" : "https"}://${tenant.subdomain}.${root}`
 }

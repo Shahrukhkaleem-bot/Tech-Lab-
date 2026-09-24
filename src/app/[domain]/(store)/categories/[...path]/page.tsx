@@ -10,6 +10,9 @@ import { getBrands, getCategoryTree, listProducts } from "@/features/catalog/que
 import { breadcrumbJsonLd } from "@/features/seo/structured-data"
 import { getTenantFromParams, tenantOrigin } from "@/features/tenants/current"
 
+// Reads URL search params (filters/search/sort): render per request. Data stays cached underneath.
+export const dynamic = "force-dynamic"
+
 type Props = PageProps<"/[domain]/categories/[...path]">
 
 async function resolve(props: Props) {

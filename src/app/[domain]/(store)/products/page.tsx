@@ -6,6 +6,9 @@ import { parseProductFilters } from "@/features/catalog/filters"
 import { getBrands, getCategoryTree, listProducts } from "@/features/catalog/queries"
 import { getTenantFromParams } from "@/features/tenants/current"
 
+// Reads URL search params (filters/search/sort): render per request. Data stays cached underneath.
+export const dynamic = "force-dynamic"
+
 export async function generateMetadata({ params, searchParams }: PageProps<"/[domain]/products">): Promise<Metadata> {
   const tenant = await getTenantFromParams(params)
   const filters = parseProductFilters(await searchParams)

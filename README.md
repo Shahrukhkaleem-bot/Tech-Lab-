@@ -8,6 +8,10 @@ The storefront layout follows modern accessory-store conventions: contact top ba
 mega menu, hero slider, category carousel, trust badges, product rails, shop by price, brand grid,
 review cards and a four-column footer. Every word, colour and image comes from tenant data.
 
+**Live demo:** https://tech-lab-liard.vercel.app (serves the *Demo Electronics* store; per-store
+subdomains become available once a custom domain with a wildcard is attached, see
+[docs/08-deployment.md](docs/08-deployment.md)).
+
 ## Stack
 
 Next.js 16 (App Router, `proxy.ts`, Server Components/Actions) · React 19 · TypeScript (strict) ·
