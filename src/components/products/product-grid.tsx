@@ -1,6 +1,8 @@
 import type { ProductSummary } from "@/features/catalog/types"
 import { cn } from "@/lib/utils"
 
+import { RevealGroup, RevealItem } from "@/components/motion/reveal"
+
 import { ProductCard } from "./product-card"
 
 export function ProductGrid({
@@ -17,13 +19,13 @@ export function ProductGrid({
   priorityCount?: number
 }) {
   return (
-    <ul className={cn("grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-4", className)}>
+    <RevealGroup as="ul" stagger={0.06} className={cn("grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-4", className)}>
       {products.map((p, i) => (
-        <li key={p.id}>
+        <RevealItem as="li" key={p.id}>
           <ProductCard product={p} currency={currency} locale={locale} priority={i < priorityCount} />
-        </li>
+        </RevealItem>
       ))}
-    </ul>
+    </RevealGroup>
   )
 }
 

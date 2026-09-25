@@ -1,6 +1,7 @@
 "use client"
 
 import { Heart, Search, ShoppingBag, User } from "lucide-react"
+import * as m from "motion/react-m"
 import Link from "next/link"
 
 import { useCart, useWishlist } from "@/components/providers/store-providers"
@@ -13,9 +14,16 @@ import { SearchBox } from "./search-box"
 function CountBadge({ count }: { count: number }) {
   if (count <= 0) return null
   return (
-    <span className="absolute -top-0.5 -right-0.5 flex min-w-4.5 items-center justify-center rounded-full bg-highlight px-1 text-[10px] leading-4.5 font-bold text-highlight-foreground">
+    // Keyed by count: remounts and "pops" every time the number changes.
+    <m.span
+      key={count}
+      initial={{ scale: 0.4, opacity: 0 }}
+      animate={{ scale: [0.4, 1.35, 1], opacity: 1 }}
+      transition={{ duration: 0.45, times: [0, 0.6, 1] }}
+      className="absolute -top-0.5 -right-0.5 flex min-w-4.5 items-center justify-center rounded-full bg-highlight px-1 text-[10px] leading-4.5 font-bold text-highlight-foreground"
+    >
       {count > 99 ? "99+" : count}
-    </span>
+    </m.span>
   )
 }
 

@@ -1,6 +1,7 @@
 import { Suspense } from "react"
 
 import { JsonLd } from "@/components/common/json-ld"
+import { Reveal } from "@/components/motion/reveal"
 import { BrandGrid } from "@/components/home/brand-grid"
 import { CategoryCarousel } from "@/components/home/category-carousel"
 import { HeroCarousel } from "@/components/home/hero-carousel"
@@ -60,20 +61,31 @@ export default async function HomePage({ params }: PageProps<"/[domain]">) {
       <JsonLd data={[storeJsonLd(tenant, settings, origin), websiteJsonLd(tenant, origin)]} />
       <h1 className="sr-only">{tenant.name}</h1>
 
+      {/* No reveal wrapper: the hero is the LCP element and must paint immediately. */}
       <HeroCarousel banners={banners} />
-      <CategoryCarousel categories={tree.roots} />
+      <Reveal>
+        <CategoryCarousel categories={tree.roots} />
+      </Reveal>
       <TrustBadges badges={settings.trustBadges} />
 
       {sections.map((section, i) => (
-        <Suspense key={`${section.type}-${i}`} fallback={<ProductRailSkeleton />}>
-          <HomeSection tenant={tenant} section={section} index={i} />
-        </Suspense>
+        <Reveal key={`${section.type}-${i}`}>
+          <Suspense fallback={<ProductRailSkeleton />}>
+            <HomeSection tenant={tenant} section={section} index={i} />
+          </Suspense>
+        </Reveal>
       ))}
 
-      <ShopByPrice ranges={settings.priceRanges} />
+      <Reveal>
+        <ShopByPrice ranges={settings.priceRanges} />
+      </Reveal>
       <BrandGrid brands={brands.filter((b) => b.isFeatured).slice(0, 12)} />
-      <ReviewsCarousel reviews={reviews} />
-      <StoreLocation location={settings.location} storeName={tenant.name} />
+      <Reveal>
+        <ReviewsCarousel reviews={reviews} />
+      </Reveal>
+      <Reveal>
+        <StoreLocation location={settings.location} storeName={tenant.name} />
+      </Reveal>
     </div>
   )
 }

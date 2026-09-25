@@ -1,6 +1,8 @@
 import { Award, BadgeCheck, Clock, Gift, Headphones, RotateCcw, ShieldCheck, ThumbsUp, Truck, Wallet, type LucideIcon } from "lucide-react"
 import Link from "next/link"
 
+import { RevealGroup, RevealItem } from "@/components/motion/reveal"
+
 import type { TRUST_ICONS } from "@/features/tenants/schemas"
 import type { TrustBadge } from "@/features/tenants/types"
 
@@ -22,12 +24,12 @@ export function TrustBadges({ badges }: { badges: TrustBadge[] }) {
   if (!badges.length) return null
   return (
     <section aria-label="Why shop with us">
-      <ul className="grid grid-cols-2 gap-3 rounded-2xl border bg-card p-3 sm:gap-4 sm:p-5 lg:grid-cols-4">
+      <RevealGroup as="ul" stagger={0.1} className="grid grid-cols-2 gap-3 rounded-2xl border bg-card p-3 sm:gap-4 sm:p-5 lg:grid-cols-4">
         {badges.map((b) => {
           const Icon = ICONS[b.icon]
           const content = (
             <>
-              <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-accent text-primary">
+              <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-accent text-primary transition-transform duration-300 group-hover/badge:scale-110 group-hover/badge:-rotate-6">
                 <Icon className="size-5" aria-hidden />
               </span>
               <span className="min-w-0">
@@ -37,7 +39,7 @@ export function TrustBadges({ badges }: { badges: TrustBadge[] }) {
             </>
           )
           return (
-            <li key={b.title}>
+            <RevealItem as="li" key={b.title} className="group/badge">
               {b.href ? (
                 <Link href={b.href} className="flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-accent">
                   {content}
@@ -45,10 +47,10 @@ export function TrustBadges({ badges }: { badges: TrustBadge[] }) {
               ) : (
                 <div className="flex items-center gap-3 p-2">{content}</div>
               )}
-            </li>
+            </RevealItem>
           )
         })}
-      </ul>
+      </RevealGroup>
     </section>
   )
 }

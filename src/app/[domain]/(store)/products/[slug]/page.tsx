@@ -5,6 +5,7 @@ import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
 import { JsonLd } from "@/components/common/json-ld"
+import { Reveal } from "@/components/motion/reveal"
 import { PlainText } from "@/components/common/plain-text"
 import { Price } from "@/components/common/price"
 import { RatingStars } from "@/components/common/rating-stars"
@@ -184,7 +185,8 @@ export default async function ProductPage(props: Props) {
         </div>
       </div>
 
-      <section id="reviews" aria-labelledby="reviews-heading" className="mt-16 scroll-mt-24">
+      <Reveal as="section" className="mt-16">
+      <div id="reviews" className="scroll-mt-28">
         <h2 id="reviews-heading" className="mb-6 text-xl font-bold tracking-tight sm:text-2xl">
           Customer reviews {product.reviewCount ? `(${product.reviewCount})` : ""}
         </h2>
@@ -198,13 +200,14 @@ export default async function ProductPage(props: Props) {
           </div>
           <ReviewFormGate productId={product.id} slug={product.slug} />
         </div>
-      </section>
+      </div>
+      </Reveal>
 
-      <div className="mt-16">
+      <Reveal className="mt-16">
         <Suspense fallback={<ProductRailSkeleton />}>
           <RelatedProducts tenant={tenant} product={product} />
         </Suspense>
-      </div>
+      </Reveal>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import { SectionHeader } from "@/components/common/section-header"
+import { RevealGroup, RevealItem } from "@/components/motion/reveal"
 import { SmartImage } from "@/components/common/smart-image"
 import type { Brand } from "@/features/catalog/types"
 import { cn } from "@/lib/utils"
@@ -11,9 +12,9 @@ export function BrandGrid({ brands, title = "Shop by Brand", showHeader = true, 
   return (
     <section aria-labelledby={showHeader ? "brands-heading" : undefined} className={className}>
       {showHeader ? <SectionHeader id="brands-heading" title={title} viewAllHref="/brands" viewAllLabel="All brands" /> : null}
-      <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6">
+      <RevealGroup as="ul" stagger={0.05} className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6">
         {brands.map((b) => (
-          <li key={b.id}>
+          <RevealItem as="li" key={b.id}>
             <Link
               href={`/brands/${b.slug}`}
               className={cn(
@@ -37,9 +38,9 @@ export function BrandGrid({ brands, title = "Shop by Brand", showHeader = true, 
                 </span>
               )}
             </Link>
-          </li>
+          </RevealItem>
         ))}
-      </ul>
+      </RevealGroup>
     </section>
   )
 }

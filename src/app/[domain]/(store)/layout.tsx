@@ -1,4 +1,5 @@
 import { CartDrawer } from "@/components/cart/cart-drawer"
+import { BackToTop } from "@/components/layout/back-to-top"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { SiteHeader } from "@/components/layout/site-header"
 import { QuickViewDialog } from "@/components/products/quick-view-dialog"
@@ -30,6 +31,7 @@ export default async function StoreLayout({ children, params }: LayoutProps<"/[d
       <SiteFooter tenant={tenant} settings={settings} navigation={navigation} />
       <CartDrawer />
       <QuickViewDialog />
+      <BackToTop />
     </>
   )
 }

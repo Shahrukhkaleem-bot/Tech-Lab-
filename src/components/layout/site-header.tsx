@@ -5,6 +5,7 @@ import { SearchBox } from "@/components/navigation/search-box"
 import type { Category } from "@/features/catalog/types"
 import type { StoreNavigation, StoreSettings, Tenant } from "@/features/tenants/types"
 
+import { StickyHeader } from "./sticky-header"
 import { StoreLogo } from "./store-logo"
 import { TopBar } from "./top-bar"
 
@@ -19,7 +20,7 @@ export function SiteHeader({ tenant, settings, navigation, categories }: SiteHea
   return (
     <>
       <TopBar tenant={tenant} settings={settings} />
-      <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <StickyHeader className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
         <div className="container-page flex h-16 items-center gap-3 sm:h-18 sm:gap-6">
           <MobileMenu storeName={tenant.name} categories={categories} links={navigation.header} phone={tenant.contact.phone} />
           <StoreLogo tenant={tenant} />
@@ -29,7 +30,7 @@ export function SiteHeader({ tenant, settings, navigation, categories }: SiteHea
           </div>
         </div>
         <CategoryMegaMenu categories={categories} links={navigation.header} />
-      </header>
+      </StickyHeader>
     </>
   )
 }

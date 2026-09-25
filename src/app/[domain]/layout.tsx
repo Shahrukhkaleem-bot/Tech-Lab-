@@ -2,6 +2,7 @@ import "../globals.css"
 
 import type { Metadata, Viewport } from "next"
 
+import { MotionProvider } from "@/components/motion/motion-provider"
 import { StoreProviders } from "@/components/providers/store-providers"
 import { TenantProvider } from "@/components/providers/tenant-provider"
 import { Toaster } from "@/components/ui/sonner"
@@ -69,7 +70,9 @@ export default async function TenantRootLayout({ children, params }: LayoutProps
           }}
         >
           <StoreProviders tenantId={tenant.id}>
-            <TooltipProvider delayDuration={200}>{children}</TooltipProvider>
+            <MotionProvider>
+              <TooltipProvider delayDuration={200}>{children}</TooltipProvider>
+            </MotionProvider>
             <Toaster position="top-center" />
           </StoreProviders>
         </TenantProvider>

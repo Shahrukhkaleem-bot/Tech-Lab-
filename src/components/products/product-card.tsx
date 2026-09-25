@@ -30,7 +30,7 @@ export function ProductCard({ product, currency, locale, priority, className }: 
   return (
     <article
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-xl border bg-card transition-shadow duration-200 hover:shadow-lg",
+        "group relative flex h-full flex-col overflow-hidden rounded-xl border bg-card transition-[box-shadow,transform,border-color] duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl",
         className,
       )}
     >

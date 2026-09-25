@@ -49,6 +49,13 @@
   }
 }
 
+/* Top-level on purpose: Tailwind only emits keyframes declared inside @theme when a
+   theme animation references them, and this one is used by the .hero-progress class. */
+@keyframes hero-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
 :root {
   --font-sans: ui-sans-serif, system-ui, sans-serif;
   --radius: 0.75rem;
@@ -92,7 +99,8 @@
   }
   /* Respect users who prefer less motion. */
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    /* The hero progress bar is a pausable timer, not decorative motion: keep its duration. */
+    *:not(.hero-progress), *::before, *::after {
       animation-duration: 0.01ms !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
@@ -109,6 +117,12 @@
   }
   .scrollbar-none::-webkit-scrollbar {
     display: none;
+  }
+  /* Hero autoplay timer (duration set inline; excluded from the reduced-motion rule). */
+  .hero-progress {
+    animation-name: hero-progress;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
   }
   .skeleton-shimmer {
     background: linear-gradient(90deg, var(--muted) 25%, color-mix(in oklab, var(--muted) 60%, white) 50%, var(--muted) 75%);
