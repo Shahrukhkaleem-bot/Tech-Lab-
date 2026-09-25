@@ -51,7 +51,7 @@ export function QuickViewDialog() {
                 alt={state.product.image?.alt ?? state.product.name}
                 fill
                 sizes="(min-width: 640px) 380px, 100vw"
-                className="object-contain p-6"
+                className="object-cover"
               />
             </div>
             <div className="flex flex-col gap-3 p-6">

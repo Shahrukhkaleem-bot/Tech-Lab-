@@ -43,7 +43,7 @@ export function ProductCard({ product, currency, locale, priority, className }: 
             fill
             sizes="(min-width: 1280px) 20vw, (min-width: 768px) 30vw, 50vw"
             priority={priority}
-            className="object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </Link>
 

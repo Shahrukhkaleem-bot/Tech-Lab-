@@ -136,7 +136,7 @@ export function SearchBox({ className, autoFocus, onNavigate }: { className?: st
                   className={cn("flex items-center gap-3 px-3 py-2.5 hover:bg-accent", i === active && "bg-accent")}
                 >
                   <span className="relative size-11 shrink-0 overflow-hidden rounded-md bg-muted">
-                    <SmartImage src={item.imageUrl} alt="" fill sizes="44px" className="object-contain p-1" />
+                    <SmartImage src={item.imageUrl} alt="" fill sizes="44px" className="object-cover" />
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="line-clamp-1 text-sm font-medium">{item.name}</span>

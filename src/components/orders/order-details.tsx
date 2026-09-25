@@ -74,7 +74,7 @@ export function OrderDetails({ order, locale, timeZone }: { order: OrderView; lo
           {order.items.map((item) => (
             <li key={item.id} className="flex items-center gap-3 p-4">
               <span className="relative size-14 shrink-0 overflow-hidden rounded-md border bg-muted">
-                <SmartImage src={item.imageUrl} alt="" fill sizes="56px" className="object-contain p-1" />
+                <SmartImage src={item.imageUrl} alt="" fill sizes="56px" className="object-cover" />
               </span>
               <div className="min-w-0 flex-1">
                 {item.slug ? (

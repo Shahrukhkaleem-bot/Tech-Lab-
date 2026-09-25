@@ -80,7 +80,7 @@ export function CartDrawer() {
                     onClick={() => setOpen(false)}
                     className="relative size-20 shrink-0 overflow-hidden rounded-lg border bg-muted"
                   >
-                    <SmartImage src={item.imageUrl} alt={item.name} fill sizes="80px" className="object-contain p-1.5" />
+                    <SmartImage src={item.imageUrl} alt={item.name} fill sizes="80px" className="object-cover" />
                   </Link>
                   <div className="flex min-w-0 flex-1 flex-col gap-1.5">
                     <div className="flex items-start justify-between gap-2">

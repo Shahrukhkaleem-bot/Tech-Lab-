@@ -26,7 +26,7 @@ export function OrderSummary({ quote, loading, locale }: { quote: CheckoutQuote 
         {quote.lines.map((l) => (
           <li key={l.productId} className="flex gap-3 py-3">
             <span className="relative size-14 shrink-0 overflow-hidden rounded-md border bg-muted">
-              <SmartImage src={l.imageUrl} alt="" fill sizes="56px" className="object-contain p-1" />
+              <SmartImage src={l.imageUrl} alt="" fill sizes="56px" className="object-cover" />
               <span className="absolute -top-1.5 -right-1.5 flex size-5 items-center justify-center rounded-full bg-foreground text-[10px] font-bold text-background">
                 {l.quantity}
               </span>

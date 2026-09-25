@@ -36,7 +36,7 @@ export function WishlistView() {
         <li key={item.productId} className="group relative overflow-hidden rounded-xl border">
           <Link href={`/products/${item.slug}`} className="block">
             <span className="relative block aspect-square bg-muted">
-              <SmartImage src={item.imageUrl} alt={item.name} fill sizes="25vw" className="object-contain p-3" />
+              <SmartImage src={item.imageUrl} alt={item.name} fill sizes="25vw" className="object-cover" />
             </span>
             <span className="block space-y-1 p-3">
               <span className="line-clamp-2 text-sm font-medium">{item.name}</span>

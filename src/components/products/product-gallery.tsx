@@ -20,7 +20,7 @@ export function ProductGallery({ images, name, discountPercent }: { images: Prod
           fill
           priority
           sizes="(min-width: 1024px) 50vw, 100vw"
-          className="object-contain p-6"
+          className="object-cover"
           fallbackLabel={name}
         />
         {discountPercent > 0 ? (
@@ -44,7 +44,7 @@ export function ProductGallery({ images, name, discountPercent }: { images: Prod
                   i === active ? "border-primary" : "border-transparent hover:border-border",
                 )}
               >
-                <SmartImage src={img.url} alt="" fill sizes="80px" className="object-contain p-1" />
+                <SmartImage src={img.url} alt="" fill sizes="80px" className="object-cover" />
               </button>
             </li>
           ))}

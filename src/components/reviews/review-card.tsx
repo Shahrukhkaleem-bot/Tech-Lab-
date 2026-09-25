@@ -34,7 +34,7 @@ export function ReviewCard({ review, className, showProduct = true }: { review: 
       {showProduct && review.product ? (
         <Link href={`/products/${review.product.slug}`} className="mt-auto flex items-center gap-3 rounded-lg bg-muted/60 p-2 hover:bg-accent">
           <span className="relative size-10 shrink-0 overflow-hidden rounded-md bg-background">
-            <SmartImage src={review.product.imageUrl} alt="" fill sizes="40px" className="object-contain p-1" />
+            <SmartImage src={review.product.imageUrl} alt="" fill sizes="40px" className="object-cover" />
           </span>
           <span className="line-clamp-2 text-xs font-medium">{review.product.name}</span>
         </Link>
