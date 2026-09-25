@@ -116,5 +116,9 @@ export function mapBanner(row: BannerRow): Banner {
     linkUrl: row.link_url,
     desktopImageUrl: row.desktop_image_url,
     mobileImageUrl: row.mobile_image_url,
+    desktopSize:
+      row.desktop_image_width && row.desktop_image_height ? { width: row.desktop_image_width, height: row.desktop_image_height } : null,
+    mobileSize: row.mobile_image_width && row.mobile_image_height ? { width: row.mobile_image_width, height: row.mobile_image_height } : null,
+    showText: row.show_text,
   }
 }

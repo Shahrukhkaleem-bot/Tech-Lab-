@@ -48,6 +48,12 @@ export const bannerFormSchema = z
       .or(z.literal("")),
     desktopImageUrl: z.string().max(2048).regex(/^(https:\/\/|\/)/, "Upload a desktop image"),
     mobileImageUrl: imageUrl,
+    desktopImageWidth: z.number().int().min(1).max(20000).nullable().optional(),
+    desktopImageHeight: z.number().int().min(1).max(20000).nullable().optional(),
+    mobileImageWidth: z.number().int().min(1).max(20000).nullable().optional(),
+    mobileImageHeight: z.number().int().min(1).max(20000).nullable().optional(),
+    /** Off when the image already contains its own text: shown as-is, whole banner is the link. */
+    showText: z.boolean().default(true),
     displayOrder: z.coerce.number().int().min(0).max(10_000).default(0),
     isActive: z.boolean().default(true),
     startsAt: z.string().optional().or(z.literal("")),

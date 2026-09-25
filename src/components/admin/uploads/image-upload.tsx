@@ -9,12 +9,13 @@ import { Button } from "@/components/ui/button"
 import { UPLOAD_BUCKETS, type UploadBucket } from "@/features/admin/uploads/constants"
 import { cn } from "@/lib/utils"
 
-import { uploadImage } from "./upload-client"
+import { uploadImage, type ImageSize } from "./upload-client"
 
 type ImageUploadProps = {
   bucket: UploadBucket
   value: string | null
-  onChange: (url: string | null) => void
+  /** Second argument: intrinsic size of a newly uploaded image (null when removed/unknown). */
+  onChange: (url: string | null, size?: ImageSize | null) => void
   label: string
   aspect?: "square" | "wide"
   className?: string
@@ -31,7 +32,7 @@ export function ImageUpload({ bucket, value, onChange, label, aspect = "square",
     setProgress(0)
     try {
       const uploaded = await uploadImage(bucket, file, setProgress)
-      onChange(uploaded.publicUrl)
+      onChange(uploaded.publicUrl, uploaded.size)
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Upload failed")
     } finally {

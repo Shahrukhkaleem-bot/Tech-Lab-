@@ -30,6 +30,11 @@ const EMPTY: BannerFormInput = {
   linkUrl: "",
   desktopImageUrl: "",
   mobileImageUrl: null,
+  desktopImageWidth: null,
+  desktopImageHeight: null,
+  mobileImageWidth: null,
+  mobileImageHeight: null,
+  showText: true,
   displayOrder: 0,
   isActive: true,
   startsAt: "",
@@ -44,6 +49,7 @@ export function BannerManager({ rows }: { rows: BannerRowView[] }) {
     register,
     control,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<BannerFormInput>({ resolver: zodResolver(bannerFormSchema), values: editing ?? EMPTY })
 
@@ -111,10 +117,10 @@ export function BannerManager({ rows }: { rows: BannerRowView[] }) {
         <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-2xl">
           <DialogHeader>
             <DialogTitle>{editing ? "Edit banner" : "New banner"}</DialogTitle>
-            <DialogDescription>Homepage hero slide. Recommended desktop size 2100×800, mobile 800×1000.</DialogDescription>
+            <DialogDescription>Homepage hero slide. Images are shown uncropped at their own shape, on phones too. Wide images (e.g. 2100×800) work best on desktop; add a square or portrait mobile image for phones.</DialogDescription>
           </DialogHeader>
           <form id="banner-form" onSubmit={onSubmit} noValidate className="space-y-4">
-            <Field id="b-heading" label="Heading" error={errors.heading?.message}>
+            <Field id="b-heading" label="Heading" error={errors.heading?.message} hint="Also read aloud to screen-reader users, even when hidden on the banner.">
               <Input id="b-heading" {...register("heading")} />
             </Field>
             <Field id="b-desc" label="Description" error={errors.description?.message}>
@@ -131,9 +137,53 @@ export function BannerManager({ rows }: { rows: BannerRowView[] }) {
                 <Input id="b-link" placeholder="/products?on_sale=1" {...register("linkUrl")} />
               </Field>
             </div>
-            <Controller control={control} name="desktopImageUrl" render={({ field }) => <ImageUpload bucket="tenant-assets" aspect="wide" label="Desktop image" value={field.value || null} onChange={(v) => field.onChange(v ?? "")} />} />
+            <Controller
+              control={control}
+              name="showText"
+              render={({ field }) => (
+                <SwitchField
+                  id="b-show-text"
+                  label="Show heading & button on the banner"
+                  description="Turn off if your image already contains its own text or logo. It will be shown exactly as designed, and the whole banner links to the Link above."
+                  checked={Boolean(field.value)}
+                  onCheckedChange={field.onChange}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="desktopImageUrl"
+              render={({ field }) => (
+                <ImageUpload
+                  bucket="tenant-assets"
+                  aspect="wide"
+                  label="Desktop image (any size; shown uncropped)"
+                  value={field.value || null}
+                  onChange={(v, size) => {
+                    field.onChange(v ?? "")
+                    setValue("desktopImageWidth", size?.width ?? null)
+                    setValue("desktopImageHeight", size?.height ?? null)
+                  }}
+                />
+              )}
+            />
             {errors.desktopImageUrl ? <p className="text-xs text-destructive">{errors.desktopImageUrl.message}</p> : null}
-            <Controller control={control} name="mobileImageUrl" render={({ field }) => <ImageUpload bucket="tenant-assets" label="Mobile image (optional)" value={field.value ?? null} onChange={field.onChange} />} />
+            <Controller
+              control={control}
+              name="mobileImageUrl"
+              render={({ field }) => (
+                <ImageUpload
+                  bucket="tenant-assets"
+                  label="Mobile image (optional, e.g. square or portrait)"
+                  value={field.value ?? null}
+                  onChange={(v, size) => {
+                    field.onChange(v)
+                    setValue("mobileImageWidth", size?.width ?? null)
+                    setValue("mobileImageHeight", size?.height ?? null)
+                  }}
+                />
+              )}
+            />
             <div className="grid gap-4 sm:grid-cols-3">
               <Field id="b-order" label="Display order" error={errors.displayOrder?.message}>
                 <Input id="b-order" inputMode="numeric" {...register("displayOrder")} />

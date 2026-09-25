@@ -87,6 +87,11 @@ export type Banner = {
   linkUrl: string | null
   desktopImageUrl: string
   mobileImageUrl: string | null
+  /** Intrinsic sizes (null = unknown, measured in the browser). */
+  desktopSize: { width: number; height: number } | null
+  mobileSize: { width: number; height: number } | null
+  /** false = the image already contains its own text; render it without overlay/heading. */
+  showText: boolean
 }
 
 export const PRODUCT_SORTS = ["relevance", "newest", "price_asc", "price_desc", "rating", "best_selling", "name"] as const

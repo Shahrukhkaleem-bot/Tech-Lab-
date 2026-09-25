@@ -112,9 +112,9 @@ begin
     seo = jsonb_build_object('description', p_tagline)
   where tenant_id = p_tenant;
 
-  insert into public.banners (tenant_id, heading, description, badge, cta_label, link_url, desktop_image_url, display_order) values
-    (p_tenant, 'New season, new arrivals', 'Discover the latest products picked for you — delivered to your door.', 'Just in', 'Shop new arrivals', '/products?sort=newest', p_hero, 0),
-    (p_tenant, 'Up to 30% off selected items', 'Limited-time prices on customer favourites. While stocks last.', 'Sale', 'Shop the sale', '/products?on_sale=1', p_hero, 1);
+  insert into public.banners (tenant_id, heading, description, badge, cta_label, link_url, desktop_image_url, desktop_image_width, desktop_image_height, display_order) values
+    (p_tenant, 'New season, new arrivals', 'Discover the latest products picked for you — delivered to your door.', 'Just in', 'Shop new arrivals', '/products?sort=newest', p_hero, 2100, 800, 0),
+    (p_tenant, 'Up to 30% off selected items', 'Limited-time prices on customer favourites. While stocks last.', 'Sale', 'Shop the sale', '/products?on_sale=1', p_hero, 2100, 800, 1);
 
   insert into public.store_pages (tenant_id, slug, title, content) values
     (p_tenant, 'shipping-policy', 'Shipping Policy', E'We deliver nationwide.\n\nOrders placed before 3 pm on working days are dispatched the same day. Standard delivery takes 2–5 working days.\n\nThis is demo content — edit it from Admin → Settings → Pages.'),

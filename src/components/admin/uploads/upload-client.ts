@@ -3,7 +3,20 @@
 import { createSignedUploadAction } from "@/features/admin/uploads/actions"
 import { validateUploadFile, type UploadBucket } from "@/features/admin/uploads/constants"
 
-export type UploadedFile = { publicUrl: string; path: string; bucket: UploadBucket }
+export type ImageSize = { width: number; height: number }
+export type UploadedFile = { publicUrl: string; path: string; bucket: UploadBucket; size: ImageSize | null }
+
+/** Intrinsic pixel size of an image file (null if the browser can't decode it, e.g. .ico). */
+async function readImageSize(file: File): Promise<ImageSize | null> {
+  try {
+    const bitmap = await createImageBitmap(file)
+    const size = { width: bitmap.width, height: bitmap.height }
+    bitmap.close()
+    return size
+  } catch {
+    return null
+  }
+}
 
 /**
  * Uploads a file straight to Supabase Storage through a signed URL (the server never
@@ -12,6 +25,7 @@ export type UploadedFile = { publicUrl: string; path: string; bucket: UploadBuck
 export async function uploadImage(bucket: UploadBucket, file: File, onProgress?: (pct: number) => void): Promise<UploadedFile> {
   const problem = validateUploadFile(bucket, file)
   if (problem) throw new Error(problem)
+  const size = await readImageSize(file)
 
   const res = await createSignedUploadAction({ bucket, contentType: file.type, size: file.size })
   if (!res.ok) throw new Error(res.error.message)
@@ -32,5 +46,5 @@ export async function uploadImage(bucket: UploadBucket, file: File, onProgress?:
     xhr.send(body)
   })
 
-  return { publicUrl, path, bucket }
+  return { publicUrl, path, bucket, size }
 }

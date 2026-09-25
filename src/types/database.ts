@@ -197,6 +197,11 @@ export type BannerRow = Timestamps & {
   link_url: string | null
   desktop_image_url: string
   mobile_image_url: string | null
+  desktop_image_width: number | null
+  desktop_image_height: number | null
+  mobile_image_width: number | null
+  mobile_image_height: number | null
+  show_text: boolean
   display_order: number
   is_active: boolean
   starts_at: string | null
