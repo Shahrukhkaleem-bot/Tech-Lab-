@@ -11,8 +11,8 @@
 -- No users are created here. Create an account through the app, then run
 --   select public.seed_grant_demo_owner('you@example.com');
 -- to become owner of all three demo stores.
--- Products have no images on purpose: the UI shows a branded placeholder
--- until you upload images from /admin.
+-- Products are seeded without images (the UI shows a branded placeholder). The hosted
+-- demo stores have real CC0 photos uploaded to Storage; see docs/PHOTO_CREDITS.md.
 -- =============================================================================
 
 begin;
