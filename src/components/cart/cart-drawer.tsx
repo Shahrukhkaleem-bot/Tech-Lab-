@@ -95,7 +95,7 @@ export function CartDrawer() {
                         type="button"
                         onClick={() => remove(item.productId)}
                         aria-label={`Remove ${item.name}`}
-                        className="rounded-md p-1 text-muted-foreground hover:bg-accent hover:text-destructive"
+                        className="-mt-1 -mr-1 rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-destructive"
                       >
                         <Trash2 className="size-4" aria-hidden />
                       </button>

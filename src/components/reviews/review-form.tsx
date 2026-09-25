@@ -66,7 +66,7 @@ export function ReviewForm({ productId }: { productId: string }) {
                   aria-checked={field.value === n}
                   aria-label={`${n} star${n > 1 ? "s" : ""}`}
                   onClick={() => field.onChange(n)}
-                  className="rounded p-0.5"
+                  className="rounded-md p-1.5"
                 >
                   <Star className={cn("size-6", n <= field.value ? "fill-amber-400 text-amber-400" : "text-muted-foreground/40")} aria-hidden />
                 </button>

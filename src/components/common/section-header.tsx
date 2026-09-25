@@ -28,7 +28,7 @@ export function SectionHeader({ title, subtitle, viewAllHref, viewAllLabel = "Vi
         {viewAllHref ? (
           <Link
             href={viewAllHref}
-            className="group inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline underline-offset-4"
+            className="group -my-2 inline-flex items-center gap-1 py-2 text-sm font-semibold text-primary hover:underline underline-offset-4"
           >
             {viewAllLabel}
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />

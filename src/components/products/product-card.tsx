@@ -79,7 +79,7 @@ export function ProductCard({ product, currency, locale, priority, className }: 
 
         {/* Relative + z-10 so the button sits above the full-card link overlay. */}
         <div className="relative z-10 mt-auto pt-2">
-          <AddToCartButton product={product} size="sm" fullWidth />
+          <AddToCartButton product={product} size="sm" fullWidth className="h-10 sm:h-8" />
         </div>
       </div>
     </article>

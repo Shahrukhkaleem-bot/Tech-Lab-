@@ -15,8 +15,8 @@ export function PurchasePanel({ product }: { product: ProductDetail }) {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
       {product.inStock ? <QuantitySelector value={quantity} onChange={(q) => setQuantity(Math.max(1, Math.min(q, max)))} max={max} /> : null}
-      <AddToCartButton product={product} quantity={quantity} size="lg" className="flex-1" openCartOnAdd />
-      <WishlistButton product={product} variant="full" className="h-10" />
+      <AddToCartButton product={product} quantity={quantity} size="lg" className="w-full sm:w-auto sm:flex-1" openCartOnAdd />
+      <WishlistButton product={product} variant="full" className="h-11 w-full sm:h-10 sm:w-auto" />
     </div>
   )
 }

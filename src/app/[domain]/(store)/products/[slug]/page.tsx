@@ -97,7 +97,7 @@ export default async function ProductPage(props: Props) {
           <h1 className="text-2xl leading-tight font-bold tracking-tight sm:text-3xl">{product.name}</h1>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
             {product.reviewCount > 0 ? (
-              <a href="#reviews" className="hover:underline">
+              <a href="#reviews" className="inline-block py-2 hover:underline">
                 <RatingStars rating={product.rating} count={product.reviewCount} showValue size="md" />
               </a>
             ) : null}

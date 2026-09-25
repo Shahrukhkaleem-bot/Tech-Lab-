@@ -50,7 +50,8 @@ export function AddToCartButton({ product, quantity = 1, size = "default", class
       return
     }
     if (limited) toast.info(`Only ${added} more could be added — that's all we have in stock.`)
-    else
+    else if (!openCartOnAdd)
+      // The drawer itself confirms the add; a toast would cover its header on phones.
       toast.success("Added to cart", {
         description: product.name,
         action: { label: "View cart", onClick: () => setCartOpen(true) },

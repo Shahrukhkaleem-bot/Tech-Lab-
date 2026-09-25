@@ -85,11 +85,11 @@ export function MobileMenu({ storeName, categories, links, phone }: MobileMenuPr
         </nav>
 
         <div className="mt-auto space-y-2 border-t p-4 text-sm">
-          <Link href="/account" onClick={close} className="flex items-center gap-2 font-medium">
+          <Link href="/account" onClick={close} className="flex items-center gap-2 py-2.5 font-medium">
             <User className="size-4" aria-hidden /> My account
           </Link>
           {phone ? (
-            <a href={`tel:${phone.replace(/\s+/g, "")}`} className="flex items-center gap-2 text-muted-foreground">
+            <a href={`tel:${phone.replace(/\s+/g, "")}`} className="flex items-center gap-2 py-2.5 text-muted-foreground">
               <Phone className="size-4" aria-hidden /> {phone}
             </a>
           ) : null}

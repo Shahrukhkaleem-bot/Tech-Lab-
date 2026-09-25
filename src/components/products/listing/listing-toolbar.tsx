@@ -56,19 +56,19 @@ export function ListingToolbar({ filters, options, locked, total }: ToolbarProps
   const sortOptions = PRODUCT_SORTS.filter((s) => s !== "relevance" || filters.q)
 
   return (
-    <div className="mb-5 flex items-center justify-between gap-3">
+    <div className="mb-5 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
       <p className="text-sm text-muted-foreground" aria-live="polite">
         {pending ? "Updating…" : `${total.toLocaleString()} ${total === 1 ? "product" : "products"}`}
       </p>
 
       <div className="flex items-center gap-2">
-        <Button variant="outline" size="sm" className="lg:hidden" onClick={() => begin(filters)}>
+        <Button variant="outline" size="sm" className="h-10 sm:h-8 lg:hidden" onClick={() => begin(filters)}>
           <SlidersHorizontal aria-hidden />
           Filters{active ? ` (${active})` : ""}
         </Button>
 
         <Select value={filters.sort} onValueChange={(v) => apply({ ...filters, sort: v as ProductSort })}>
-          <SelectTrigger size="sm" className="w-44" aria-label="Sort products">
+          <SelectTrigger size="sm" className="h-10 w-40 sm:h-8 sm:w-44" aria-label="Sort products">
             <SelectValue />
           </SelectTrigger>
           <SelectContent align="end">

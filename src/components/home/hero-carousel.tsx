@@ -169,12 +169,12 @@ export function HeroCarousel({ banners }: { banners: Banner[] }) {
             />
           </div>
 
-          <div className="absolute right-4 bottom-4 flex items-center gap-1.5 sm:right-6 sm:bottom-6">
+          <div className="absolute right-3 bottom-2 flex items-center sm:right-5 sm:bottom-4">
             <button
               type="button"
               onClick={() => setUserPaused((p) => !p)}
               aria-label={userPaused ? "Play slideshow" : "Pause slideshow"}
-              className="mr-1.5 flex size-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition hover:bg-white/35"
+              className="mr-1 flex size-9 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition hover:bg-white/35"
             >
               {userPaused ? <Play className="size-3.5 fill-current" aria-hidden /> : <Pause className="size-3.5 fill-current" aria-hidden />}
             </button>
@@ -185,8 +185,13 @@ export function HeroCarousel({ banners }: { banners: Banner[] }) {
                 onClick={() => go(i, i > index ? 1 : -1)}
                 aria-label={`Go to slide ${i + 1}`}
                 aria-current={i === index}
-                className={cn("h-2 rounded-full bg-white/50 transition-all duration-300", i === index ? "w-7 bg-white" : "w-2 hover:bg-white/80")}
-              />
+                className="group/dot flex h-9 min-w-7 items-center justify-center px-1"
+              >
+                <span
+                  aria-hidden
+                  className={cn("block h-2 rounded-full bg-white/50 transition-all duration-300", i === index ? "w-7 bg-white" : "w-2 group-hover/dot:bg-white/80")}
+                />
+              </button>
             ))}
           </div>
 

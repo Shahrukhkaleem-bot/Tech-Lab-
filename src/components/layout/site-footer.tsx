@@ -37,10 +37,10 @@ function LinkColumn({ title, links }: { title: string; links: NavLink[] }) {
   return (
     <div>
       <h2 className="mb-4 text-sm font-semibold tracking-wide uppercase">{title}</h2>
-      <ul className="space-y-2.5 text-sm">
+      <ul className="space-y-0.5 text-sm">
         {links.map((l) => (
           <li key={l.id}>
-            <Link href={l.href} className="opacity-80 transition-opacity hover:underline hover:opacity-100">
+            <Link href={l.href} className="inline-block py-2 opacity-80 transition-opacity hover:underline hover:opacity-100 sm:py-1">
               {l.label}
             </Link>
           </li>
@@ -71,7 +71,7 @@ export function SiteFooter({ tenant, settings, navigation }: { tenant: Tenant; s
             {phone ? (
               <li className="flex gap-2">
                 <Phone className="mt-0.5 size-4 shrink-0" aria-hidden />
-                <a href={`tel:${phone.replace(/\s+/g, "")}`} className="hover:underline">
+                <a href={`tel:${phone.replace(/\s+/g, "")}`} className="-my-2 inline-block py-2 hover:underline">
                   {phone}
                 </a>
               </li>
@@ -79,7 +79,7 @@ export function SiteFooter({ tenant, settings, navigation }: { tenant: Tenant; s
             {email ? (
               <li className="flex gap-2">
                 <Mail className="mt-0.5 size-4 shrink-0" aria-hidden />
-                <a href={`mailto:${email}`} className="hover:underline">
+                <a href={`mailto:${email}`} className="-my-2 inline-block py-2 hover:underline">
                   {email}
                 </a>
               </li>

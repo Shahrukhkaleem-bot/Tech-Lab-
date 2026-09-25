@@ -97,14 +97,14 @@ export function ProductListing({ tenant, title, description, basePath, filters, 
             <ul className="mb-5 flex flex-wrap items-center gap-2" aria-label="Active filters">
               {chips.map((c) => (
                 <li key={c.label}>
-                  <Link href={c.href} className="inline-flex items-center gap-1 rounded-full bg-accent px-3 py-1 text-xs font-medium hover:bg-accent/70" aria-label={`Remove filter ${c.label}`}>
+                  <Link href={c.href} className="inline-flex h-9 items-center gap-1 rounded-full bg-accent px-3 text-xs font-medium hover:bg-accent/70 sm:h-7" aria-label={`Remove filter ${c.label}`}>
                     {c.label}
                     <X className="size-3" aria-hidden />
                   </Link>
                 </li>
               ))}
               <li>
-                <Link href={basePath} className="text-xs font-medium text-primary hover:underline">
+                <Link href={basePath} className="inline-block py-2 text-xs font-medium text-primary hover:underline">
                   Clear all
                 </Link>
               </li>
