@@ -72,7 +72,7 @@ begin
       {"icon": "truck", "title": "Express Delivery", "description": "Nationwide delivery in 2–5 working days"},
       {"icon": "badge-check", "title": "Genuine Products", "description": "Sourced from authorised distributors"},
       {"icon": "rotate-ccw", "title": "Easy Returns", "description": "7-day hassle-free return policy"},
-      {"icon": "shield-check", "title": "Secure Payments", "description": "Cash on delivery, bank transfer and cards"}
+      {"icon": "wallet", "title": "Cash on Delivery", "description": "Pay in cash when your order arrives"}
     ]'::jsonb,
     homepage_sections = '[
       {"type": "featured", "title": "Featured Products", "subtitle": "Hand-picked favourites from our team", "limit": 8},
@@ -102,11 +102,11 @@ begin
       "couriers": ["TCS", "Leopards", "Trax"]
     }'::jsonb,
     payment_config = '{
-      "enabled_methods": ["cod", "bank_transfer"],
+      "enabled_methods": ["cod"],
       "bank_accounts": [{"bank_name": "Demo Bank", "account_title": "Demo Store (Pvt) Ltd", "account_number": "0000-0000000-0", "iban": "PK00DEMO0000000000000000"}],
       "instructions": "Share the transfer receipt on WhatsApp with your order number."
     }'::jsonb,
-    footer_badges = '[{"label": "Cash on Delivery"}, {"label": "Bank Transfer"}, {"label": "Visa"}, {"label": "Mastercard"}, {"label": "TCS"}, {"label": "Leopards"}]'::jsonb,
+    footer_badges = '[{"label": "Cash on Delivery"}, {"label": "TCS"}, {"label": "Leopards"}]'::jsonb,
     shipping_info = 'Orders placed before 3 pm ship the same day. Delivery takes 2–5 working days nationwide. Tracking details are shared by SMS and email once your parcel is dispatched.',
     return_info = 'Unused items in original packaging can be returned within 7 days of delivery. Warranty claims are handled according to the brand warranty policy.',
     seo = jsonb_build_object('description', p_tagline)

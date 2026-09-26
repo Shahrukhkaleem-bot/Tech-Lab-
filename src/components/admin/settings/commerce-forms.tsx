@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { offeredPaymentMethods } from "@/config/platform"
 import { savePaymentSettingsAction, saveShippingSettingsAction } from "@/features/admin/settings/actions"
 import { PAYMENT_METHOD_LABELS } from "@/features/orders/status"
 import type { BankAccount, ShippingConfig } from "@/features/tenants/types"
@@ -83,8 +84,6 @@ export function ShippingSettingsForm({ initial }: { initial: ShippingConfig & { 
   )
 }
 
-const METHODS: PaymentMethod[] = ["cod", "bank_transfer", "card", "wallet"]
-
 export function PaymentSettingsForm({
   initial,
   cardConfigured,
@@ -105,7 +104,7 @@ export function PaymentSettingsForm({
       }}
     >
       <FormSection title="Payment methods">
-        {METHODS.map((m) => {
+        {offeredPaymentMethods.map((m) => {
           const unavailable = (m === "card" && !cardConfigured) || m === "wallet"
           return (
             <div key={m} className="flex items-start gap-2">
@@ -125,7 +124,8 @@ export function PaymentSettingsForm({
           )
         })}
       </FormSection>
-      <FormSection title="Bank accounts" description="Shown to customers who choose bank transfer.">
+      {offeredPaymentMethods.includes("bank_transfer") ? (
+        <FormSection title="Bank accounts" description="Shown to customers who choose bank transfer.">
         {v.bank_accounts.map((a, i) => (
           <div key={i} className="grid gap-2 rounded-lg border p-3 sm:grid-cols-2">
             {(["bank_name", "account_title", "account_number", "iban"] as const).map((k) => (
@@ -148,8 +148,9 @@ export function PaymentSettingsForm({
         <Field id="pay-instr" label="Payment instructions">
           <Textarea id="pay-instr" rows={2} value={v.instructions} onChange={(e) => setV({ ...v, instructions: e.target.value })} />
         </Field>
-      </FormSection>
-      {cardConfigured ? (
+        </FormSection>
+      ) : null}
+      {cardConfigured && offeredPaymentMethods.includes("card") ? (
         <FormSection title="Stripe Connect" description="Optional: route card payments to this store's connected Stripe account.">
           <Field id="acct" label="Connected account ID">
             <Input id="acct" value={v.stripe_account_id} onChange={(e) => setV({ ...v, stripe_account_id: e.target.value })} placeholder="acct_…" />

@@ -1,5 +1,6 @@
 import "server-only"
 
+import { offeredPaymentMethods } from "@/config/platform"
 import type { PaymentSettings } from "@/features/tenants/types"
 import type { PaymentMethod } from "@/types/database"
 
@@ -27,9 +28,10 @@ export function getProviderById(id: string): PaymentProvider | undefined {
 
 export type AvailablePaymentMethod = { method: PaymentMethod; label: string }
 
-/** Methods shown at checkout: enabled by the tenant AND usable on this deployment. */
+/** Methods shown at checkout: offered by the platform, enabled by the tenant AND usable on this deployment. */
 export function availablePaymentMethods(settings: PaymentSettings): AvailablePaymentMethod[] {
   return settings.enabledMethods
+    .filter((m) => offeredPaymentMethods.includes(m))
     .map((m) => PROVIDERS[m])
     .filter((p) => p.isAvailable({ settings }))
     .map((p) => ({ method: p.method, label: p.label }))

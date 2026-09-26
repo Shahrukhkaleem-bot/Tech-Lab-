@@ -1,5 +1,6 @@
 import { z } from "zod"
 
+import { offeredPaymentMethods } from "@/config/platform"
 import {
   bankAccountSchema,
   brandConfigSchema,
@@ -34,7 +35,10 @@ export const shippingSettingsSchema = shippingConfigSchema.extend({
 })
 
 export const paymentSettingsSchema = z.object({
-  enabled_methods: z.array(z.enum(PAYMENT_METHODS)).min(1, "Enable at least one payment method"),
+  enabled_methods: z
+    .array(z.enum(PAYMENT_METHODS))
+    .min(1, "Enable at least one payment method")
+    .refine((ms) => ms.every((m) => offeredPaymentMethods.includes(m)), "That payment method is not available"),
   bank_accounts: z.array(bankAccountSchema).max(10),
   instructions: optionalText(500),
   stripe_account_id: z
