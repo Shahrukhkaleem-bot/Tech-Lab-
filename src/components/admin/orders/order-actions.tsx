@@ -50,10 +50,16 @@ type Props = {
 export function OrderActions(props: Props) {
   const { pending, run } = useRun()
   const options = nextStatuses(props.orderStatus).filter((s) => props.canManage || (s !== "cancelled" && s !== "returned"))
-  const [status, setStatus] = useState<OrderStatus | "">(options[0] ?? "")
+  const [picked, setPicked] = useState<OrderStatus | "">(options[0] ?? "")
+  // After a save the next-step options change; fall back to the first valid one.
+  const status = picked && options.includes(picked) ? picked : (options[0] ?? "")
+  const setStatus = setPicked
   const [note, setNote] = useState("")
   const [restock, setRestock] = useState(true)
-  const [payment, setPayment] = useState<PaymentStatus>(props.paymentStatus)
+  // A pick only counts against the payment status it was made on (status changes can move it too).
+  const [paymentPick, setPaymentPick] = useState<{ from: PaymentStatus; to: PaymentStatus } | null>(null)
+  const payment = paymentPick?.from === props.paymentStatus ? paymentPick.to : props.paymentStatus
+  const setPayment = (to: PaymentStatus) => setPaymentPick({ from: props.paymentStatus, to })
   const [courier, setCourier] = useState(props.courierName ?? "")
   const [tracking, setTracking] = useState(props.trackingNumber ?? "")
   const [trackingUrl, setTrackingUrl] = useState(props.trackingUrl ?? "")

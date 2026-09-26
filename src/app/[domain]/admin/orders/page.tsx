@@ -75,7 +75,7 @@ export default async function AdminOrdersPage({ params, searchParams }: PageProp
                         <Link href={`/admin/orders/${o.id}`} className="font-semibold text-primary hover:underline">
                           #{o.orderNumber}
                         </Link>
-                        <span className="block text-xs text-muted-foreground">{o.itemCount} items</span>
+                        <span className="block text-xs text-muted-foreground">{o.itemCount} {o.itemCount === 1 ? "item" : "items"}</span>
                       </td>
                       <td className="p-3">
                         <span className="block font-medium">{o.customerName}</span>
